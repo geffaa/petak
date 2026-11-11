@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Hover tooltip for parcels on the map. */
+.parcel-tooltip .maplibregl-popup-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    line-height: 1.35;
+    color: var(--color-slate-600);
+    pointer-events: none;
+}
+
+.parcel-tooltip .maplibregl-popup-content strong {
+    display: block;
+    color: var(--color-slate-900);
+    font-weight: 600;
+}
+
+.parcel-tooltip {
+    pointer-events: none;
+}

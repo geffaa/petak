@@ -1,0 +1,23 @@
+services:
+  postgis:
+    # Multi-arch build of the official PostGIS image (runs natively on Apple Silicon).
+    image: imresamu/postgis:17-3.5
+    container_name: webgis-property-postgis
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-webgis}
+      POSTGRES_USER: ${DB_USERNAME:-webgis}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+    ports:
+      - "${DB_PORT:-54329}:5432"
+    volumes:
+      - postgis-data:/var/lib/postgresql/data
+      - ./database/docker/01-create-test-database.sql:/docker-entrypoint-initdb.d/20-create-test-database.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-webgis} -d ${DB_DATABASE:-webgis}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  postgis-data:
